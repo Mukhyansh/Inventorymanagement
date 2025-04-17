@@ -6,4 +6,4 @@ With this, the user can ~
 2. Buy products
 3. View products
 4. See the purchase history of the products.
-The interface is protected via User Authentication and only an authorized personell can login.
+User Authentication protects the interface, and only authorized personnel can log in.
