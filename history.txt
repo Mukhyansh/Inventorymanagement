@@ -1,0 +1,52 @@
+
+Name of the product: bat
+Id of the product: gvwy5vyw6u
+price of the product: 567.000000
+Name of dealer: 2
+
+contact details of the dealer: 3
+Date of the purchase: 1
+
+
+---------------------------------
+Name of the product: bat
+Id of the product: gvwy5vyw6u
+price of the product: 567.000000
+Name of dealer: mukhyansh
+
+contact details of the dealer: 9306372437
+Date of the purchase: 11/4/25
+
+---------------------------------
+
+---------------------------------
+Name of the product: batS.no: 0
+Id of the product: 76r6nuyu--------------------------
+price of the product: 2500.000000
+Name of dealer: 241241
+
+contact details of the dealer: 0
+Date of the purchase: 12irh4
+
+
+---------------------------------
+Name of the product: watch
+
+Id of the product: r345ct54wc5
+
+price of the product: 1000.000000
+Name of dealer: Mukhyansh
+
+contact details of the dealer: 9306372437
+Date of the purchase: 11/4/25
+
+
+---------------------------------
+Name of the product: watch
+Id of the product: r345ct54wc5
+price of the product: 1000.000000
+Name of dealer: albert
+
+contact details of the dealer: 9876543210
+Date of the purchase: 11/4/25
+

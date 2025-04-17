@@ -1,0 +1,25 @@
+Product Name: bat
+S.no: 0
+Quantity: 2
+Price: 2500.00
+Product ID: 76r6nuyu--------------------------
+Product Name: watch
+S.no: 4
+Quantity: 8
+Price: 1000.00
+Product ID: r345ct54wc5--------------------------
+Product Name: coat
+S.no: 5
+Quantity: 10
+Price: 1000.00
+Product ID: rw35yfw6y--------------------------
+Product Name: 
+S.no: 0
+Quantity: 0
+Price: 0.00
+Product ID: --------------------------
+Product Name: 
+S.no: 0
+Quantity: 0
+Price: 0.00
+Product ID: --------------------------
