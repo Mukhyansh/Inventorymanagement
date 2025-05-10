@@ -3,6 +3,8 @@
 #include<math.h>
 #include<string.h>
 #include<stdbool.h>
+#include<ctype.h>
+#include"verify.h"
 
 typedef struct{
     int s;
@@ -34,17 +36,21 @@ void viewproducts();
 void purchase_history();
 
 int main(){
-    char id[200];
-    puts("Enter your ID");
-    fgets(id,sizeof(id),stdin);
-    if(id[0]=='2' && id[1]=='4' && id[2]=='0' && id[3]=='1'){
-        printf("VERIFIED.\n");
-        goto point;
+    puts("Enter Your Choice: ");
+    int ch;
+    puts("Enter 1 For signup and 2 for login: ");
+    scanf("%d",&ch);
+    if(ch==1){
+        signup();
+        return 1;
     }
-    else{
-        printf("NOT VERIFIED");
-            return 0;
+    else if(ch==2){
+        if(login()){
+            puts("Welcome!");
+        }
+        else return 1;
     }
+    else puts("Wrong input!");
     point:
     puts("------------------------------------");
     puts("INVENTORY MANAGEMENT SYSTEM");
@@ -61,6 +67,7 @@ int main(){
         printf("5.Exit\n");
         printf("Enter choice: ");
         scanf("%d",&c);
+        if(isdigit(c))
         switch(c){
             case 1: addproduct(); break;
             case 2: buyproduct(); break;
@@ -76,7 +83,7 @@ int main(){
 void addproduct(){
     int num;
     puts("------------------------------------");
-    printf("Enter number of products you wish to add: ");
+    printf("Enter number of products you wish to add:  ");
     scanf("%d",&num);
     puts("------------------------------------");
     FILE *fp=fopen("inventory.txt","a");
@@ -98,15 +105,15 @@ void addproduct(){
         getchar(); //newline remove \n
         printf("Enter the product_id for %d: ",i+1);
         fgets(prod[i].product_id,sizeof(prod[i].product_id),stdin);
-        puts("------------------------------------");
+        puts("\n------------------------------------");
         fprintf(fp,"Product Name: %s\n",prod[i].item);
         fprintf(fp,"S.no: %d\n",prod[i].s);
         fprintf(fp,"Quantity: %d\n",prod[i].instock);
         fprintf(fp,"Price: %.2f\n",prod[i].price);
         fprintf(fp,"Product ID: %s\n",prod[i].product_id);
-        fprintf(fp,"--------------------------\n");
+        fprintf(fp,"\n--------------------------\n");
     }
-    printf("-------------------------------\nPRODUCTS ADDED SUCCESSFULLY\n-------------------\n");
+    printf("\n-------------------------------\nPRODUCTS ADDED SUCCESSFULLY\n-------------------------------\n");
         fclose(fp);
     }
     
@@ -114,11 +121,24 @@ void viewproducts(){
     FILE *ptr;
     char ch;
     ptr=fopen("inventory.txt","r");
-    if(ptr==NULL) puts("Error\n");
+    if (ptr == NULL) {
+        perror("File open error");
+        fclose(ptr);
+        return;
+    } 
     puts("-----------THE PRODUCTS IN THE INVENTORY-------------");
+        fseek(ptr,0,SEEK_END);
+        int size = ftell(ptr);
+        if(size==0){
+            printf("\nThere are no products to view, Please wait for the stock to be filled.\n");
+        } 
+        
+        else{
+            rewind(ptr);
     while((ch=fgetc(ptr))!=EOF){
         putchar(ch);
     }
+
     puts("");
     puts("--------------END OF LIST-------------");
     puts("would you like to purchase a product?");
@@ -127,11 +147,14 @@ void viewproducts(){
     scanf("%d",&ce);
     if(ce==1) buyproduct();
     else return ;
+}
     fclose(ptr);
 }
 
+
 void buyproduct(){
-    int ms;
+
+    char name[200];
     int choice;
     int num;
     int count=0;
@@ -148,12 +171,31 @@ void buyproduct(){
     }
     fclose(pt);
     FILE *ptr=fopen("inventory.txt","r+");
+    if (ptr == NULL) {
+        perror("File open error");
+    } 
+    else{
+        fseek(ptr,0,SEEK_END);
+        int size = ftell(ptr);
+        if(size==0){
+            puts("----------------------------------------------------------------");
+            printf("No items in stock, Please wait for the stock to be refilled.\n");
+            puts("----------------------------------------------------------------");
+            return ;
+        } 
     p:
-    printf("Enter the serial number of the product you'd like to purchase: ");
-    scanf("%d",&ms);
+    printf("Enter the name of the product you'd like to purchase or press 0 to exit: ");
+    scanf("%s",name);
+    if(strcmp(name,"0")==0){
+        return;
+    }
     printf("Enter the number of the products you'd like to purchase: \n");
     scanf("%d",&num);
     getchar();
+    if(num<0){
+    printf("\n-------\nEnter a positive integer!\n-------\n");
+    goto p;
+    }
     for(int i=0;i<20;i++){
         fscanf(ptr," Product Name: %[^\n]\n", prod[i].item);
         fscanf(ptr," S.no: %d\n", &prod[i].s);
@@ -162,7 +204,7 @@ void buyproduct(){
         fscanf(ptr," Product ID: %[^\n]\n", prod[i].product_id);
         fscanf(ptr,"\n--------------------------\n");
         count++;
-        if(prod[i].s==ms){
+        if(strcmp(prod[i].item,name)==0){
             found=true;
             if(prod[i].instock==0){
                 printf("product not available\n");
@@ -228,7 +270,7 @@ void buyproduct(){
         goto p;
     }
     fclose(ptr);
-
+}
 }
 void purchase_history(){
     FILE *p=fopen("history.txt","r+");
