@@ -67,7 +67,6 @@ int main(){
         printf("5.Exit\n");
         printf("Enter choice: ");
         scanf("%d",&c);
-        if(isdigit(c))
         switch(c){
             case 1: addproduct(); break;
             case 2: buyproduct(); break;
