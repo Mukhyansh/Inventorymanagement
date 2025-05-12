@@ -262,10 +262,11 @@ void buyproduct(){
             } 
             break;      
         }
+        
     } 
     if(!found){
-        puts("Product not available");
-        puts("-------------------------");
+        printf("The Product '%s' is not available or the name is incorrectly typed.\n",name);
+        puts("\n-------------------------");
         goto p;
     }
     fclose(ptr);
